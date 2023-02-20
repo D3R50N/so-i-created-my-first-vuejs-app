@@ -196,13 +196,7 @@
     </form>
 
     <ul>
-      <li v-for="todo in todos" :key="todo.id" class="todo" :class="todo.class">
-        <div class="left">
-          <div class="name">{{ todo.title }}</div>
-          <div class="date">{{ todo.date }}</div>
-        </div>
-        <button @click="removeTodo(todo.id)">Supprimer</button>
-      </li>
+      <Todo v-for="todo in todos" :todo="todo" :remove="removeTodo"></Todo>
     </ul>
 
     <p class="muted" v-if="todos.length==0"> Aucune tâche pour l'instant </p>
