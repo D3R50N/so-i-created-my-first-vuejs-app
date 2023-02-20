@@ -21,6 +21,9 @@
 
     h1 {
       color: #00C084;
+      animation: slideX_and_Bounce .6s linear;
+      text-align: center;
+
     }
 
     .todo {
@@ -34,6 +37,79 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      animation: fade .2s linear;
+    }
+
+    @keyframes fade {
+      0% {
+        /* transform: scale(0); */
+        opacity: 0;
+      }
+
+      100% {
+        /* transform: scale(1); */
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideX {
+      0% {
+        transform: translateX(100%);
+      }
+
+      100% {
+        transform: translateX(0);
+      }
+
+    }
+
+    @keyframes fadeout {
+      0% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+
+      }
+    }
+
+    @keyframes slideX_and_Bounce {
+      0% {
+        transform: translateX(100%);
+      }
+
+      50% {
+        transform: translateX(-20px);
+      }
+
+      60% {
+        transform: translateX(20px);
+      }
+
+      70% {
+        transform: translateX(-10px);
+      }
+
+      80% {
+        transform: translateX(10px);
+      }
+
+      90% {
+        transform: translateX(-5px);
+      }
+
+
+      100% {
+        transform: translateX(0);
+      }
+      
+    }
+
+    .fadeout {
+      animation: fadeout .2s linear;
+      opacity: 0;
+
     }
 
     .ip-container {
@@ -83,10 +159,29 @@
       background-color: #222121;
     }
 
-    
+
     .todo .date {
       font-size: 12px;
       color: #ffffff81;
+    }
+
+    .todo button {
+      background-color: #aa1e1e7d;
+      color: rgba(245, 245, 245, 0.411);
+      border: none;
+      outline: none;
+      padding: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition-duration: .2s;
+    }
+
+    .todo button:hover {
+      background-color: #aa1e1e;
+    }
+    .muted{
+      color: #ffffff3d;
+      text-align: center;
     }
   </style>
 </head>
@@ -101,10 +196,16 @@
     </form>
 
     <ul>
-      <li v-for="todo in todos" :key="todo.id" class="todo">
-        <div class="name">{{ todo.title }}</div>
-        <div class="date">{{ todo.date }}</div>
+      <li v-for="todo in todos" :key="todo.id" class="todo" :class="todo.class">
+        <div class="left">
+          <div class="name">{{ todo.title }}</div>
+          <div class="date">{{ todo.date }}</div>
+        </div>
+        <button @click="removeTodo(todo.id)">Supprimer</button>
       </li>
+    </ul>
+
+    <p class="muted" v-if="todos.length==0"> Aucune tâche pour l'instant </p>
   </div>
 
   <script type="module" src="/src/main.js"></script>
